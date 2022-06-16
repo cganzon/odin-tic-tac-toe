@@ -23,13 +23,20 @@ const dom = (() => {
 const game = (() => {
   const startGame = () => {
     const playerOne = player("X");
-    addCellListeners(playerOne);
+    const playerTwo = player("O");
+    let currentPlayer = playerOne;
+    addCellListeners(currentPlayer, playerOne, playerTwo);
   };
-  const addCellListeners = (player) => {
+  const addCellListeners = (currentPlayer, playerOne, playerTwo) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
-        markSpot(cell, player.getMarker());
-        gameBoard.saveMarker(index, player.getMarker());
+        markSpot(cell, currentPlayer.getMarker());
+        gameBoard.saveMarker(index, currentPlayer.getMarker());
+        if (currentPlayer.getMarker() === "X") {
+          currentPlayer = playerTwo;
+        } else {
+          currentPlayer = playerOne;
+        }
       });
     });
   };
