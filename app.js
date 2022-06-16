@@ -7,10 +7,10 @@ const playerOne = player("X");
 console.log(playerOne);
 
 const gameBoard = (() => {
-  const gameBoard = [null, null, null, null, null, null, null, null, null];
+  const _gameBoard = [null, null, null, null, null, null, null, null, null];
   const saveMarker = (index, marker) => {
-    gameBoard[index] = marker;
-    console.log(gameBoard);
+    _gameBoard[index] = marker;
+    console.log(_gameBoard);
   };
   return { saveMarker };
 })();
@@ -25,12 +25,12 @@ const game = (() => {
     const playerOne = player("X");
     const playerTwo = player("O");
     let currentPlayer = playerOne;
-    addCellListeners(currentPlayer, playerOne, playerTwo);
+    _addCellListeners(currentPlayer, playerOne, playerTwo);
   };
-  const addCellListeners = (currentPlayer, playerOne, playerTwo) => {
+  const _addCellListeners = (currentPlayer, playerOne, playerTwo) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
-        markSpot(cell, currentPlayer.getMarker());
+        _markSpot(cell, currentPlayer.getMarker());
         gameBoard.saveMarker(index, currentPlayer.getMarker());
         if (currentPlayer.getMarker() === "X") {
           currentPlayer = playerTwo;
@@ -40,7 +40,7 @@ const game = (() => {
       });
     });
   };
-  const markSpot = (cell, marker) => {
+  const _markSpot = (cell, marker) => {
     cell.textContent = marker;
   };
   return { startGame };
