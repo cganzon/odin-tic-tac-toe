@@ -12,7 +12,7 @@ const gameBoard = (() => {
     gameBoard[index] = marker;
     console.log(gameBoard);
   };
-  return { gameBoard, saveMarker };
+  return { saveMarker };
 })();
 
 const dom = (() => {
@@ -43,7 +43,7 @@ const game = (() => {
   const markSpot = (cell, marker) => {
     cell.textContent = marker;
   };
-  return { addCellListeners, startGame };
+  return { startGame };
 })();
 
 game.startGame();
