@@ -1,6 +1,10 @@
 const gameBoard = (() => {
-  const gameBoard = [];
-  return { gameBoard };
+  const gameBoard = [null, null, null, null, null, null, null, null, null];
+  const saveMarker = (index, marker) => {
+    gameBoard[index] = marker;
+    console.log(gameBoard);
+  };
+  return { gameBoard, saveMarker };
 })();
 
 const dom = (() => {
@@ -10,9 +14,10 @@ const dom = (() => {
 
 const game = (() => {
   const addCellListeners = () => {
-    dom.cells.forEach((cell) => {
+    dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
         markSpot(cell, "X");
+        gameBoard.saveMarker(index, "X");
       });
     });
   };
