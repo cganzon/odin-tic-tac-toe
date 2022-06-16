@@ -4,16 +4,20 @@ const gameBoard = (() => {
 })();
 
 const dom = (() => {
-  const board = document.querySelector(".board");
-  return { board };
+  const cells = document.querySelectorAll(".cell");
+  return { cells };
 })();
 
 const game = (() => {
   const addCellListeners = () => {
-    dom.board.addEventListener("click", (e) => markSpot(e.target));
+    dom.cells.forEach((cell) => {
+      cell.addEventListener("click", () => {
+        markSpot(cell, "X");
+      });
+    });
   };
-  const markSpot = (cell) => {
-    cell.textContent = "X";
+  const markSpot = (cell, marker) => {
+    cell.textContent = marker;
   };
   return { addCellListeners };
 })();
