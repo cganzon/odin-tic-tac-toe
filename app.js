@@ -1,3 +1,11 @@
+const player = (marker) => {
+  const getMarker = () => marker;
+  return { getMarker };
+};
+
+const playerOne = player("X");
+console.log(playerOne);
+
 const gameBoard = (() => {
   const gameBoard = [null, null, null, null, null, null, null, null, null];
   const saveMarker = (index, marker) => {
@@ -13,18 +21,22 @@ const dom = (() => {
 })();
 
 const game = (() => {
-  const addCellListeners = () => {
+  const startGame = () => {
+    const playerOne = player("X");
+    addCellListeners(playerOne);
+  };
+  const addCellListeners = (player) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
-        markSpot(cell, "X");
-        gameBoard.saveMarker(index, "X");
+        markSpot(cell, player.getMarker());
+        gameBoard.saveMarker(index, player.getMarker());
       });
     });
   };
   const markSpot = (cell, marker) => {
     cell.textContent = marker;
   };
-  return { addCellListeners };
+  return { addCellListeners, startGame };
 })();
 
-game.addCellListeners();
+game.startGame();
