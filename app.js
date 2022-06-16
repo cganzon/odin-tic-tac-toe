@@ -30,12 +30,16 @@ const game = (() => {
   const _addCellListeners = (currentPlayer, playerOne, playerTwo) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
-        _markSpot(cell, currentPlayer.getMarker());
-        gameBoard.saveMarker(index, currentPlayer.getMarker());
-        if (currentPlayer.getMarker() === "X") {
-          currentPlayer = playerTwo;
+        if(cell.textContent !== "") {
+            return;
         } else {
-          currentPlayer = playerOne;
+            _markSpot(cell, currentPlayer.getMarker());
+            gameBoard.saveMarker(index, currentPlayer.getMarker());
+            if (currentPlayer.getMarker() === "X") {
+              currentPlayer = playerTwo;
+            } else {
+              currentPlayer = playerOne;
+            }
         }
       });
     });
