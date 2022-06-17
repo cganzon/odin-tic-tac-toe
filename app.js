@@ -3,9 +3,6 @@ const player = (marker) => {
   return { getMarker };
 };
 
-const playerOne = player("X");
-console.log(playerOne);
-
 const gameBoard = (() => {
   const _gameBoard = [null, null, null, null, null, null, null, null, null];
   const saveMarker = (index, marker) => {
@@ -30,16 +27,16 @@ const game = (() => {
   const _addCellListeners = (currentPlayer, playerOne, playerTwo) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
-        if(cell.textContent !== "") {
-            return;
+        if (cell.textContent !== "") {
+          return;
         } else {
-            _markSpot(cell, currentPlayer.getMarker());
-            gameBoard.saveMarker(index, currentPlayer.getMarker());
-            if (currentPlayer.getMarker() === "X") {
-              currentPlayer = playerTwo;
-            } else {
-              currentPlayer = playerOne;
-            }
+          _markSpot(cell, currentPlayer.getMarker());
+          gameBoard.saveMarker(index, currentPlayer.getMarker());
+          if (currentPlayer.getMarker() === "X") {
+            currentPlayer = playerTwo;
+          } else {
+            currentPlayer = playerOne;
+          }
         }
       });
     });
