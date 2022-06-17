@@ -1,33 +1,33 @@
-*, 
+*,
 *::before,
 *::after {
-    margin: 0; 
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --grid-size: 450px;
+  --grid-size: 450px;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .board {
-    width: var(--grid-size);
-    height: var(--grid-size);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+  width: var(--grid-size);
+  height: var(--grid-size);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }
 
 .cell {
-    cursor: pointer;
-    border: 1px solid #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  cursor: pointer;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
