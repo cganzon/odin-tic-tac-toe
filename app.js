@@ -41,8 +41,7 @@ const game = (() => {
     cell.textContent = marker;
   };
   const _swapTurns = (currentPlayer, playerOne, playerTwo) => {
-    return (currentPlayer =
-      currentPlayer.getMarker() === "X" ? playerTwo : playerOne);
+    return currentPlayer === playerOne ? playerTwo : playerOne;
   };
   return { startGame };
 })();
