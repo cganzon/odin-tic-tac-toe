@@ -32,17 +32,17 @@ const game = (() => {
         } else {
           _markSpot(cell, currentPlayer.getMarker());
           gameBoard.saveMarker(index, currentPlayer.getMarker());
-          if (currentPlayer.getMarker() === "X") {
-            currentPlayer = playerTwo;
-          } else {
-            currentPlayer = playerOne;
-          }
+          currentPlayer = swapTurns(currentPlayer, playerOne, playerTwo);
         }
       });
     });
   };
   const _markSpot = (cell, marker) => {
     cell.textContent = marker;
+  };
+  const swapTurns = (currentPlayer, playerOne, playerTwo) => {
+    return (currentPlayer =
+      currentPlayer.getMarker() === "X" ? playerTwo : playerOne);
   };
   return { startGame };
 })();
