@@ -31,6 +31,8 @@ const gameBoard = (() => {
 
 const dom = (() => {
   const cells = document.querySelectorAll(".cell");
+  const endGameDisplay = document.querySelector(".end-game-display");
+  const endGameMessage = document.querySelector(".end-game-message");
   const addCellListeners = (currentPlayer, playerOne, playerTwo) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
@@ -38,7 +40,7 @@ const dom = (() => {
         markSpot(cell, currentPlayer.getMarker());
         gameBoard.saveMarker(index, currentPlayer.getMarker());
         if (gameBoard.checkWin(currentPlayer)) {
-          console.log(`${currentPlayer.getMarker()} wins!`);
+          showEndGameDisplay(currentPlayer);
         }
         currentPlayer = game.swapTurns(currentPlayer, playerOne, playerTwo);
       });
@@ -46,6 +48,10 @@ const dom = (() => {
   };
   const markSpot = (cell, marker) => {
     cell.textContent = marker;
+  };
+  const showEndGameDisplay = (currentPlayer) => {
+    endGameDisplay.classList.add("show");
+    endGameMessage.textContent = `${currentPlayer.getMarker()} wins!`;
   };
   return { cells, addCellListeners };
 })();

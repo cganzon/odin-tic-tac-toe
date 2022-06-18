@@ -31,3 +31,15 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.end-game-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.show {
+  display: flex;
+}
