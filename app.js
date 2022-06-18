@@ -34,16 +34,13 @@ const dom = (() => {
   const addCellListeners = (currentPlayer, playerOne, playerTwo) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
-        if (cell.textContent !== "") {
-          return;
-        } else {
-          markSpot(cell, currentPlayer.getMarker());
-          gameBoard.saveMarker(index, currentPlayer.getMarker());
-          if (gameBoard.checkWin(currentPlayer)) {
-            console.log(`${currentPlayer.getMarker()} wins!`);
-          }
-          currentPlayer = game.swapTurns(currentPlayer, playerOne, playerTwo);
+        if (cell.textContent !== "") return;
+        markSpot(cell, currentPlayer.getMarker());
+        gameBoard.saveMarker(index, currentPlayer.getMarker());
+        if (gameBoard.checkWin(currentPlayer)) {
+          console.log(`${currentPlayer.getMarker()} wins!`);
         }
+        currentPlayer = game.swapTurns(currentPlayer, playerOne, playerTwo);
       });
     });
   };
