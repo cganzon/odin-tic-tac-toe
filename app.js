@@ -31,10 +31,26 @@ const gameBoard = (() => {
 
 const dom = (() => {
   const cells = document.querySelectorAll(".cell");
+  const addCellListeners = (currentPlayer, playerOne, playerTwo) => {
+    dom.cells.forEach((cell, index) => {
+      cell.addEventListener("click", () => {
+        if (cell.textContent !== "") {
+          return;
+        } else {
+          markSpot(cell, currentPlayer.getMarker());
+          gameBoard.saveMarker(index, currentPlayer.getMarker());
+          if (gameBoard.checkWin(currentPlayer)) {
+            console.log(`${currentPlayer.getMarker()} wins!`);
+          }
+          currentPlayer = game.swapTurns(currentPlayer, playerOne, playerTwo);
+        }
+      });
+    });
+  };
   const markSpot = (cell, marker) => {
     cell.textContent = marker;
   };
-  return { cells, markSpot };
+  return { cells, addCellListeners };
 })();
 
 const game = (() => {
@@ -42,28 +58,12 @@ const game = (() => {
     const playerOne = player("X");
     const playerTwo = player("O");
     let currentPlayer = playerOne;
-    _addCellListeners(currentPlayer, playerOne, playerTwo);
+    dom.addCellListeners(currentPlayer, playerOne, playerTwo);
   };
-  const _addCellListeners = (currentPlayer, playerOne, playerTwo) => {
-    dom.cells.forEach((cell, index) => {
-      cell.addEventListener("click", () => {
-        if (cell.textContent !== "") {
-          return;
-        } else {
-          dom.markSpot(cell, currentPlayer.getMarker());
-          gameBoard.saveMarker(index, currentPlayer.getMarker());
-          if (gameBoard.checkWin(currentPlayer)) {
-            console.log(`${currentPlayer.getMarker()} wins!`);
-          }
-          currentPlayer = _swapTurns(currentPlayer, playerOne, playerTwo);
-        }
-      });
-    });
-  };
-  const _swapTurns = (currentPlayer, playerOne, playerTwo) => {
+  const swapTurns = (currentPlayer, playerOne, playerTwo) => {
     return currentPlayer === playerOne ? playerTwo : playerOne;
   };
-  return { startGame };
+  return { startGame, swapTurns };
 })();
 
 game.startGame();
