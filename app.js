@@ -31,7 +31,10 @@ const gameBoard = (() => {
 
 const dom = (() => {
   const cells = document.querySelectorAll(".cell");
-  return { cells };
+  const markSpot = (cell, marker) => {
+    cell.textContent = marker;
+  };
+  return { cells, markSpot };
 })();
 
 const game = (() => {
@@ -47,7 +50,7 @@ const game = (() => {
         if (cell.textContent !== "") {
           return;
         } else {
-          _markSpot(cell, currentPlayer.getMarker());
+          dom.markSpot(cell, currentPlayer.getMarker());
           gameBoard.saveMarker(index, currentPlayer.getMarker());
           if (gameBoard.checkWin(currentPlayer)) {
             console.log(`${currentPlayer.getMarker()} wins!`);
@@ -56,9 +59,6 @@ const game = (() => {
         }
       });
     });
-  };
-  const _markSpot = (cell, marker) => {
-    cell.textContent = marker;
   };
   const _swapTurns = (currentPlayer, playerOne, playerTwo) => {
     return currentPlayer === playerOne ? playerTwo : playerOne;
