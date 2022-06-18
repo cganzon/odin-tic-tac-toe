@@ -15,10 +15,12 @@ const gameBoard = (() => {
     [0, 4, 8],
     [2, 4, 6],
   ];
+
   const saveMarker = (index, marker) => {
     _gameBoard[index] = marker;
     console.log(_gameBoard);
   };
+
   const checkWin = (currentPlayer) => {
     return _winningCombinations.some((combination) => {
       return combination.every((index) => {
@@ -26,6 +28,7 @@ const gameBoard = (() => {
       });
     });
   };
+
   return { saveMarker, checkWin };
 })();
 
@@ -33,6 +36,7 @@ const dom = (() => {
   const cells = document.querySelectorAll(".cell");
   const endGameDisplay = document.querySelector(".end-game-display");
   const endGameMessage = document.querySelector(".end-game-message");
+
   const addCellListeners = (currentPlayer, playerOne, playerTwo) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
@@ -46,13 +50,16 @@ const dom = (() => {
       });
     });
   };
+
   const markSpot = (cell, marker) => {
     cell.textContent = marker;
   };
+
   const showEndGameDisplay = (currentPlayer) => {
     endGameDisplay.classList.add("show");
     endGameMessage.textContent = `${currentPlayer.getMarker()} wins!`;
   };
+
   return { cells, addCellListeners };
 })();
 
@@ -63,9 +70,11 @@ const game = (() => {
     let currentPlayer = playerOne;
     dom.addCellListeners(currentPlayer, playerOne, playerTwo);
   };
+
   const swapTurns = (currentPlayer, playerOne, playerTwo) => {
     return currentPlayer === playerOne ? playerTwo : playerOne;
   };
+  
   return { startGame, swapTurns };
 })();
 
