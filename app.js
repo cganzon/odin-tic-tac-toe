@@ -40,12 +40,7 @@ const dom = (() => {
   const addCellListeners = (currentPlayer, playerOne, playerTwo) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
-        if (cell.textContent !== "") return;
-        markSpot(cell, currentPlayer.getMarker());
-        gameBoard.saveMarker(index, currentPlayer.getMarker());
-        if (gameBoard.checkWin(currentPlayer)) {
-          showEndGameDisplay(currentPlayer);
-        }
+        game.claimCell(cell, index, currentPlayer);
         currentPlayer = game.swapTurns(currentPlayer, playerOne, playerTwo);
       });
     });
@@ -60,7 +55,7 @@ const dom = (() => {
     endGameMessage.textContent = `${currentPlayer.getMarker()} wins!`;
   };
 
-  return { cells, addCellListeners };
+  return { cells, addCellListeners, markSpot, showEndGameDisplay };
 })();
 
 const game = (() => {
@@ -71,11 +66,20 @@ const game = (() => {
     dom.addCellListeners(currentPlayer, playerOne, playerTwo);
   };
 
+  const claimCell = (cell, index, currentPlayer) => {
+    if (cell.textContent !== "") return;
+    dom.markSpot(cell, currentPlayer.getMarker());
+    gameBoard.saveMarker(index, currentPlayer.getMarker());
+    if (gameBoard.checkWin(currentPlayer)) {
+      dom.showEndGameDisplay(currentPlayer);
+    }
+  };
+
   const swapTurns = (currentPlayer, playerOne, playerTwo) => {
     return currentPlayer === playerOne ? playerTwo : playerOne;
   };
-  
-  return { startGame, swapTurns };
+
+  return { startGame, claimCell, swapTurns };
 })();
 
 game.startGame();
