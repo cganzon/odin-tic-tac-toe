@@ -135,7 +135,6 @@ const game = (() => {
     gameBoard.resetBoardArray();
     dom.resetCells();
     dom.hideEndGameDisplay();
-    startGame();
   };
 
   return { startGame, swapTurns, endGame, restartGame };
