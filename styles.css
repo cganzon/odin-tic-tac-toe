@@ -10,6 +10,10 @@
 
 :root {
   --grid-size: 450px;
+  --background-color: #06aac4;
+  --accent-color: #fff;
+  --board-color: #067181;
+  --button-text-color: #4b5964;
 }
 
 body {
@@ -17,8 +21,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #06aac4;
-  color: #fff;
+  background-color: var(--background-color);
+  color: var(--accent-color);
 }
 
 h1 {
@@ -41,12 +45,12 @@ h1 {
 
 .cell {
   cursor: pointer;
-  border: 5px solid #067181;
+  border: 5px solid var(--board-color);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 4rem;
-  color: #fff;
+  color: var(--accent-color);
 }
 
 .cell:first-child,
@@ -95,8 +99,8 @@ h1 {
   border-radius: 3px;
   cursor: pointer;
   padding: 0.5rem 1rem;
-  background-color: #fff;
-  color: #4b5964;
+  background-color: var(--accent-color);
+  color: var(--button-text-color);
   font-size: 1.3rem;
   font-weight: 700;
   transition: transform 0.12s;
