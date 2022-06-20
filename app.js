@@ -43,6 +43,7 @@ const gameBoard = (() => {
 
 const dom = (() => {
   const cells = document.querySelectorAll(".cell");
+  const markerTurn = document.querySelector(".marker-turn");
   const endGameDisplay = document.querySelector(".end-game-display");
   const endGameMessage = document.querySelector(".end-game-message");
   const restartButton = document.querySelector(".restart");
@@ -60,6 +61,7 @@ const dom = (() => {
           game.endGame(null);
         } else {
           currentPlayer = game.swapTurns(currentPlayer, playerOne, playerTwo);
+          dom.markerTurn.textContent = `${currentPlayer.getMarker()}'s turn`;
         }
       });
     });
@@ -98,6 +100,7 @@ const dom = (() => {
 
   return {
     cells,
+    markerTurn,
     addCellListeners,
     markSpot,
     showEndGameDisplay,
@@ -112,6 +115,7 @@ const game = (() => {
     const playerOne = player("X");
     const playerTwo = player("O");
     let currentPlayer = playerOne;
+    dom.markerTurn.textContent = `${currentPlayer.getMarker()}'s turn`;
     dom.addCellListeners(currentPlayer, playerOne, playerTwo);
   };
 

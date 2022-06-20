@@ -23,6 +23,11 @@ h1 {
   font-size: 3rem;
 }
 
+.marker-turn {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
 .board {
   width: var(--grid-size);
   height: var(--grid-size);
@@ -76,7 +81,7 @@ h1 {
 }
 
 .end-game-message {
-  margin-top: 25rem;
+  margin-top: 35rem;
   margin-bottom: 0.5rem;
   font-size: 2rem;
 }
