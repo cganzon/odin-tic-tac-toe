@@ -29,7 +29,13 @@ const gameBoard = (() => {
     });
   };
 
-  return { saveMarker, checkWin };
+  const isDraw = () => {
+    return [...dom.cells].every((cell) => {
+      return cell.textContent !== "";
+    });
+  };
+
+  return { saveMarker, checkWin, isDraw };
 })();
 
 const dom = (() => {
@@ -40,8 +46,17 @@ const dom = (() => {
   const addCellListeners = (currentPlayer, playerOne, playerTwo) => {
     dom.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
-        game.claimCell(cell, index, currentPlayer);
-        currentPlayer = game.swapTurns(currentPlayer, playerOne, playerTwo);
+        if (cell.textContent !== "") return;
+        dom.markSpot(cell, currentPlayer.getMarker());
+        gameBoard.saveMarker(index, currentPlayer.getMarker());
+
+        if (gameBoard.checkWin(currentPlayer)) {
+          game.endGame(currentPlayer);
+        } else if (gameBoard.isDraw()) {
+          game.endGame(null);
+        } else {
+          currentPlayer = game.swapTurns(currentPlayer, playerOne, playerTwo);
+        }
       });
     });
   };
@@ -50,9 +65,14 @@ const dom = (() => {
     cell.textContent = marker;
   };
 
-  const showEndGameDisplay = (currentPlayer) => {
-    endGameDisplay.classList.add("show");
-    endGameMessage.textContent = `${currentPlayer.getMarker()} wins!`;
+  const showEndGameDisplay = (winner) => {
+    if (winner === null) {
+      endGameDisplay.classList.add("show");
+      endGameMessage.textContent = "It's a draw!";
+    } else {
+      endGameDisplay.classList.add("show");
+      endGameMessage.textContent = `${winner.getMarker()} wins!`;
+    }
   };
 
   return { cells, addCellListeners, markSpot, showEndGameDisplay };
@@ -66,20 +86,19 @@ const game = (() => {
     dom.addCellListeners(currentPlayer, playerOne, playerTwo);
   };
 
-  const claimCell = (cell, index, currentPlayer) => {
-    if (cell.textContent !== "") return;
-    dom.markSpot(cell, currentPlayer.getMarker());
-    gameBoard.saveMarker(index, currentPlayer.getMarker());
-    if (gameBoard.checkWin(currentPlayer)) {
-      dom.showEndGameDisplay(currentPlayer);
-    }
-  };
-
   const swapTurns = (currentPlayer, playerOne, playerTwo) => {
     return currentPlayer === playerOne ? playerTwo : playerOne;
   };
 
-  return { startGame, claimCell, swapTurns };
+  const endGame = (winner) => {
+    if (winner === null) {
+      dom.showEndGameDisplay(null);
+    } else {
+      dom.showEndGameDisplay(winner);
+    }
+  };
+
+  return { startGame, swapTurns, endGame };
 })();
 
 game.startGame();
