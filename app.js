@@ -4,8 +4,8 @@ const player = (marker) => {
 };
 
 const gameBoard = (() => {
-  const _gameBoard = [null, null, null, null, null, null, null, null, null];
-  const _winningCombinations = [
+  let gameBoard = [null, null, null, null, null, null, null, null, null];
+  const winningCombinations = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -17,14 +17,13 @@ const gameBoard = (() => {
   ];
 
   const saveMarker = (index, marker) => {
-    _gameBoard[index] = marker;
-    console.log(_gameBoard);
+    gameBoard[index] = marker;
   };
 
   const checkWin = (currentPlayer) => {
-    return _winningCombinations.some((combination) => {
+    return winningCombinations.some((combination) => {
       return combination.every((index) => {
-        return _gameBoard[index] === currentPlayer.getMarker();
+        return gameBoard[index] === currentPlayer.getMarker();
       });
     });
   };
@@ -35,16 +34,21 @@ const gameBoard = (() => {
     });
   };
 
-  return { saveMarker, checkWin, isDraw };
+  const resetBoardArray = () => {
+    gameBoard = [null, null, null, null, null, null, null, null, null];
+  };
+
+  return { saveMarker, checkWin, isDraw, resetBoardArray };
 })();
 
 const dom = (() => {
   const cells = document.querySelectorAll(".cell");
   const endGameDisplay = document.querySelector(".end-game-display");
   const endGameMessage = document.querySelector(".end-game-message");
+  const restartButton = document.querySelector(".restart");
 
   const addCellListeners = (currentPlayer, playerOne, playerTwo) => {
-    dom.cells.forEach((cell, index) => {
+    cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
         if (cell.textContent !== "") return;
         dom.markSpot(cell, currentPlayer.getMarker());
@@ -66,16 +70,41 @@ const dom = (() => {
   };
 
   const showEndGameDisplay = (winner) => {
+    endGameDisplay.classList.add("show");
+    dom.addRestartButtonListener();
     if (winner === null) {
-      endGameDisplay.classList.add("show");
       endGameMessage.textContent = "It's a draw!";
     } else {
-      endGameDisplay.classList.add("show");
       endGameMessage.textContent = `${winner.getMarker()} wins!`;
     }
   };
 
-  return { cells, addCellListeners, markSpot, showEndGameDisplay };
+  const hideEndGameDisplay = () => {
+    endGameDisplay.classList.remove("show");
+    endGameMessage.textContent = "";
+  };
+
+  const addRestartButtonListener = () => {
+    restartButton.addEventListener("click", () => {
+      game.resetBoard();
+    });
+  };
+
+  const resetCells = () => {
+    cells.forEach((cell) => {
+      cell.textContent = "";
+    });
+  };
+
+  return {
+    cells,
+    addCellListeners,
+    markSpot,
+    showEndGameDisplay,
+    hideEndGameDisplay,
+    addRestartButtonListener,
+    resetCells,
+  };
 })();
 
 const game = (() => {
@@ -98,7 +127,14 @@ const game = (() => {
     }
   };
 
-  return { startGame, swapTurns, endGame };
+  const resetBoard = () => {
+    gameBoard.resetBoardArray();
+    dom.resetCells();
+    dom.hideEndGameDisplay();
+    startGame();
+  };
+
+  return { startGame, swapTurns, endGame, resetBoard };
 })();
 
 game.startGame();
