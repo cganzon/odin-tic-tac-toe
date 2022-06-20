@@ -33,11 +33,21 @@ body {
 }
 
 .end-game-display {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   display: none;
+}
+
+.end-game-message {
+  margin-top: 4rem;
+}
+
+.restart {
+  cursor: pointer;
 }
 
 .show {
