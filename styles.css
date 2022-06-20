@@ -14,6 +14,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #06aac4;
+  color: #fff;
+}
+
+h1 {
+  margin: 3rem 0;
+  font-size: 3rem;
 }
 
 .board {
@@ -26,10 +33,36 @@ body {
 
 .cell {
   cursor: pointer;
-  border: 1px solid #000;
+  border: 5px solid #067181;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 4rem;
+  color: #fff;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+.cell:first-child,
+.cell:nth-child(4),
+.cell:nth-child(7) {
+  border-left: none;
+}
+
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:last-child {
+  border-right: none;
+}
+
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:last-child {
+  border-bottom: none;
 }
 
 .end-game-display {
@@ -43,11 +76,25 @@ body {
 }
 
 .end-game-message {
-  margin-top: 4rem;
+  margin-top: 25rem;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
 }
 
 .restart {
+  border: none;
+  border-radius: 3px;
   cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  color: #4B5964;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: transform 0.12s;
+}
+
+.restart:hover {
+  transform: scale(1.05);
 }
 
 .show {
