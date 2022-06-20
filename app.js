@@ -88,7 +88,7 @@ const dom = (() => {
 
   const addRestartButtonListener = () => {
     restartButton.addEventListener("click", () => {
-      game.resetBoard();
+      game.restartGame();
     });
   };
 
@@ -131,14 +131,14 @@ const game = (() => {
     }
   };
 
-  const resetBoard = () => {
+  const restartGame = () => {
     gameBoard.resetBoardArray();
     dom.resetCells();
     dom.hideEndGameDisplay();
     startGame();
   };
 
-  return { startGame, swapTurns, endGame, resetBoard };
+  return { startGame, swapTurns, endGame, restartGame };
 })();
 
 game.startGame();
