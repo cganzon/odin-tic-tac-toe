@@ -49,7 +49,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4rem;
+  font-size: 5rem;
   color: var(--accent-color);
 }
 
