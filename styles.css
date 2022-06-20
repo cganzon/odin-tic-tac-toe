@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
 *,
 *::before,
 *::after {
@@ -11,6 +13,7 @@
 }
 
 body {
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,12 +90,13 @@ h1 {
 }
 
 .restart {
+  font-family: inherit;
   border: none;
   border-radius: 3px;
   cursor: pointer;
   padding: 0.5rem 1rem;
   background-color: #fff;
-  color: #4B5964;
+  color: #4b5964;
   font-size: 1rem;
   font-weight: 700;
   transition: transform 0.12s;
